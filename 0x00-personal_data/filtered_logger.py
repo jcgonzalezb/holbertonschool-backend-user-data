@@ -29,7 +29,8 @@ class RedactingFormatter(logging.Formatter):
         return filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
     """
     This is a function that uses a regex to replace
     occurrences of certain field values.
