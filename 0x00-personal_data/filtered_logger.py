@@ -43,7 +43,7 @@ def filter_datum(fields: List[str], redaction: str,
         r'=.*', '=' + redaction, x) for x in message.split(separator)))
 
 
-def get_logger():
+def get_logger() -> logging.Logger:
     """
     This is a function that returns a logging.Logger object.
     """
