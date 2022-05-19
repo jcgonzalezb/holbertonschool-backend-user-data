@@ -7,13 +7,14 @@ import re
 
 def filter_datum(fields, redaction, message, separator):
     #result = re.sub(fields, redaction, message)
-    #for f in fields:
-    #    result = re.sub(f, redaction, message, flags=re.IGNORECASE)
-    print(fields)
-    print(type(fields))
+    print(message)
+    print(type(message))
     for f in fields:
-        print(f)
-    
+        print(re.sub(f, redaction, message, flags=re.IGNORECASE))
+    #print(fields)
+    #print(type(fields))
+    #for f in fields:
+    #    print(f)
 
     """print(redaction)
     print(type(redaction))
