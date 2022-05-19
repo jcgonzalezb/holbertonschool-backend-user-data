@@ -4,6 +4,7 @@ This project module contains a logging module
 """
 import re
 import logging
+from typing import List
 
 
 class RedactingFormatter(logging.Formatter):
@@ -14,9 +15,10 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self):
+    def __init__(self, fields: List[str]):
         """Initialize the class"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = list(fields)
 
     def format(self, record: logging.LogRecord) -> str:
         """
