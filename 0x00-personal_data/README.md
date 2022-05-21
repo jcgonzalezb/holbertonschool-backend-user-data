@@ -18,11 +18,11 @@ Filtered fields:
 - ssn
 - password
 5. This project module contains a hash_password function that expects one string argument name password and returns a salted, hashed password, which is a byte string. Use the bcrypt package to perform the hashing (with hashpw).
-6. This project module contains a is_valid function that expects 2 arguments and returns a boolean.
+6. This project module contains a is_valid function that expects 2 arguments and returns a boolean. Use bcrypt to validate that the provided password matches the hashed password.
 Arguments:
 - hashed_password: bytes type
--password: string type
-Use bcrypt to validate that the provided password matches the hashed password.
+- password: string type
+
 
 ## Languages and Tools:
 
