@@ -3,6 +3,8 @@
 Class Auth
 """
 from flask import request
+from typing import List, TypeVar
+
 
 class Auth():
     """flask authorization Auth Class
@@ -12,20 +14,16 @@ class Auth():
         """Public method that requires authentication
             Returns: False - path and excluded_paths
         """
-        return 
-    
+        return False
+
     def authorization_header(self, request=None) -> str:
-        """Public method that requires authentication
-            Returns: False - path and excluded_paths
+        """Public method for authorization header
+            Returns: None - request
         """
-        return
-    
+        return None
+
     def current_user(self, request=None) -> TypeVar('User'):
         """Public method that requires authentication
-            Returns: False - path and excluded_paths
+            Returns: None - request
         """
-        return
-
-
-
-
+        return None
