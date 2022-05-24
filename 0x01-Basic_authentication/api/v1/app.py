@@ -53,9 +53,9 @@ def before_request():
     check_auth = auth.require_auth(request.path, auth_list)
     if check_auth is False:
         return
-    if auth.authorization_header(request) == None:
+    if auth.authorization_header(request) is None:
         abort(401)
-    if auth.current_user(request) == None:
+    if auth.current_user(request) is None:
         abort(403)
 
 
