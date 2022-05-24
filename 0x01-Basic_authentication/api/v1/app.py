@@ -20,24 +20,6 @@ if auth:
     auth = Auth()
 
 
-@app.before_request
-def before_request():
-    """Executed before each request that is handled by a function of the
-    Blueprint."""
-    auth_list = [
-        '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
-    ]
-    if auth is None:
-        return
-    check_auth = auth.require_auth(request.path, auth_list)
-    if check_auth is False:
-        return
-    if auth.authorization_header(request) == None:
-        abort(401)
-    if auth.current_user(request) == None:
-        abort(403)
-
-
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
@@ -57,6 +39,24 @@ def forbidden(error):
     """ forbidden access handler
     """
     return jsonify({"error": "Forbidden"}), 403
+
+
+@app.before_request
+def before_request():
+    """Executed before each request that is handled by a function of the
+    Blueprint."""
+    auth_list = [
+        '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
+    ]
+    if auth is None:
+        return
+    check_auth = auth.require_auth(request.path, auth_list)
+    if check_auth is False:
+        return
+    if auth.authorization_header(request) == None:
+        abort(401)
+    if auth.current_user(request) == None:
+        abort(403)
 
 
 if __name__ == "__main__":
