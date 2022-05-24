@@ -20,13 +20,12 @@ if auth:
     auth = Auth()
 
 
-
 @app.before_request
 def before_request():
     """Method that filters authorization to each request"""
     auth_list = [
         '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
-        ]
+    ]
     if auth is None:
         return
     check_auth = auth.require_auth(request.path, auth_list)
@@ -51,11 +50,13 @@ def request_unauthorized(error) -> str:
     """
     return jsonify({"error": "Unauthorized"}), 401
 
+
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """ forbidden access handler
     """
     return jsonify({"error": "Forbidden"}), 403
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
