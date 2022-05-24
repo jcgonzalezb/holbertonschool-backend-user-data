@@ -10,6 +10,11 @@ class Auth():
     """flask authorization Auth Class
     """
 
+    def __init__(self):
+        """ Constructor
+        """
+        pass
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Public method that define which routes don't need authentication.
         This method must be slash tolerant.
@@ -32,17 +37,14 @@ class Auth():
             return True
 
     def authorization_header(self, request=None) -> str:
-        """Public method for authorization header
-            Returns: None - request
+        """Public method for authorization header. If request doesn’t
+        contain the header key Authorization, returns None. Otherwise,
+        return the value of the header request Authorization.
         """
-        if request is None:
-            return None
-
-        auth_header = request.headers.get('Authorization')
-        if auth_header is None:
+        if request is None or 'Authorization' not in request.headers:
             return None
         else:
-            return auth_header
+            return request.headers['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Public method that requires authentication
