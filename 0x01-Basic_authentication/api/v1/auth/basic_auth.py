@@ -6,6 +6,7 @@ from api.v1.auth.auth import Auth
 import base64
 import codecs
 
+
 class BasicAuth(Auth):
     """flask authorization BasicAuth Class
     """
@@ -37,10 +38,12 @@ class BasicAuth(Auth):
         base64_authorization_header
         """
         if base64_authorization_header is None or not isinstance(
-        base64_authorization_header, str):
+                base64_authorization_header, str):
             return None
 
         try:
-            return base64_authorization_header.decode('utf-8')
-        except AttributeError as e:
+            base64_bytes = base64_authorization_header.encode('utf-8')
+            string_bytes = base64.b64decode(base64_bytes)
+            return string_bytes.decode('utf-8')
+        except Exception as e:
             return None
