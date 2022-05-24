@@ -3,7 +3,6 @@
 Class BasicAuth
 """
 from api.v1.auth.auth import Auth
-from flask import request
 
 
 class BasicAuth(Auth):
