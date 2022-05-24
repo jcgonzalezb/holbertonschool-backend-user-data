@@ -41,11 +41,10 @@ class Auth():
         contain the header key Authorization, returns None. Otherwise,
         return the value of the header request Authorization.
         """
-        auth_header = request.headers.get('Authorization')
-        if request or auth_header is None:
+        if request is None or 'Authorization' not in request.headers:
             return None
         else:
-            return auth_header
+            return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Public method that requires authentication
