@@ -39,8 +39,8 @@ class BasicAuth(Auth):
         if base64_authorization_header is None or not isinstance(
         base64_authorization_header, str):
             return None
-        
+
         try:
             return base64_authorization_header.decode('utf-8')
-        except UnicodeDecodeError:
+        except AttributeError as e:
             return None
