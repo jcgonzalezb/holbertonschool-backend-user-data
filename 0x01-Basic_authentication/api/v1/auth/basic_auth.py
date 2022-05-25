@@ -4,7 +4,7 @@ Class BasicAuth
 """
 from api.v1.auth.auth import Auth
 import base64
-import codecs
+from typing import Tuple, Union
 
 
 class BasicAuth(Auth):
@@ -47,3 +47,17 @@ class BasicAuth(Auth):
             return string_bytes.decode('utf-8')
         except Exception as e:
             return None
+
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str) -> Union[str, str]:
+        """ Method that takes the decoded_base64_authorization header and
+        returns the user email and password from the Base64 decoded value.
+        """
+        if decoded_base64_authorization_header is None or not isinstance(
+                decoded_base64_authorization_header, str):
+            return (None, None)
+        arr = [':']
+        for i in arr:
+            if i not in decoded_base64_authorization_header:
+                return (None, None)
+            return tuple(decoded_base64_authorization_header.split(':'))
