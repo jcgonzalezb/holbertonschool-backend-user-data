@@ -60,4 +60,3 @@ class SessionAuth(Auth):
             return False
         user = User.get(user_id)
         user.remove(self)
-        return True
