@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """ Module Flask view that handles all routes for the Session authentication.
 """
-from flask import jsonify, request
+from flask import jsonify, request, session
 from api.v1.views import app_views
 from models.user import User
-from typing import TypeVar
+import os
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
@@ -32,3 +32,10 @@ def login():
     user = result[0]
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
+
+    from api.v1.app import auth
+    session_id = auth.create_session(user.id)
+    cookie_name = os.getenv('SESSION_NAME')
+    result = jsonify(user.to_json())
+    result.set_cookie(cookie_name, session_id)
+    return result
