@@ -19,7 +19,7 @@ class SessionAuth(Auth):
 
     def create_session(self, user_id: str = None) -> str:
         """
-        This instance method that creates a Session ID for a user_id.
+        This instance method creates a Session ID for a user_id.
         """
         if user_id is None or not isinstance(user_id, str):
             return None
@@ -29,7 +29,7 @@ class SessionAuth(Auth):
 
     def user_id_for_session_id(self, session_id: str = None) -> str:
         """
-        This instance method that returns a User ID based on a Session ID:
+        This instance method returns a User ID based on a Session ID:
         """
         if session_id is None or not isinstance(session_id, str):
             return None
@@ -37,7 +37,7 @@ class SessionAuth(Auth):
 
     def current_user(self, request=None):
         """
-        This instance method that returns a User instance based
+        This instance method returns a User instance based
         on a cookie value
         """
         session_id = self.session_cookie(request)
@@ -47,7 +47,7 @@ class SessionAuth(Auth):
 
     def destroy_session(self, request=None):
         """
-        This instance method that deletes the user session / logout
+        This instance method deletes the user session / logout
         """
         if request is None:
             return False
