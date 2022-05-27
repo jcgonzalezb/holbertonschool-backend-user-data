@@ -57,6 +57,5 @@ class SessionAuth(Auth):
         user_id = self.user_id_for_session_id(session_id)
         if not user_id:
             return False
-        user = User.get(user_id)
-        user.remove(self)
+        self.user_id_by_session_id.pop(session_id)
         return True
