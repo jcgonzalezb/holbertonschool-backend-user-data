@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """DB module
 """
+from gettext import find
+from requests import session
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -47,17 +49,20 @@ class DB:
             return user
         return None
 
-    def find_user_by(self, email: str) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """
-        Method that xxxxxx.
-            Returns: xxxxxx.
+        Method that takes in arbitrary keyword arguments.
+            Returns: The first row found in the users table as filtered
+        by the passed arguments.
         """
-        if email:
-            try:
-                return self._session.query(User).filter_by(email = email).first() 
-            except NoResultFound:
-                raise NoResultFound
-            except InvalidRequestError:
+        valid_arguments = [
+            'id', 'email', 'hashed_password', 'session_id', 'reset_token'
+        ]
+        input_keys = kwargs.keys()
+        for k in input_keys:
+            if k not in valid_arguments:
                 raise InvalidRequestError
-        return None
-
+            user = self._session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+            return user
