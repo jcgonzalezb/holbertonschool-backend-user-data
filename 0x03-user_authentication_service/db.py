@@ -82,6 +82,5 @@ class DB:
             if k not in valid_arguments:
                 raise ValueError
             user_located.k = kwargs.values()
-            self._session.add(user_located)
             self._session.commit()
             return None
