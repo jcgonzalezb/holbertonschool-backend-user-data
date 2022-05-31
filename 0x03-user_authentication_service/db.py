@@ -66,3 +66,22 @@ class DB:
             if user is None:
                 raise NoResultFound
             return user
+
+    def update_user(self, user_id = int, **kwargs) -> None:
+        """
+        Method that takes as argument a required user_id integer
+        and arbitrary keyword arguments.
+            Returns: None.
+        """
+        valid_arguments = [
+            'id', 'email', 'hashed_password', 'session_id', 'reset_token'
+        ]
+        input_keys = kwargs.keys()
+        for k in input_keys:
+            if k not in valid_arguments:
+                raise ValueError
+            user_located = self.find_user_by(**kwargs)
+            user = self._session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+            return user
