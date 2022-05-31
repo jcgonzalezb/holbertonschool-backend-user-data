@@ -77,11 +77,11 @@ class DB:
             'id', 'email', 'hashed_password', 'session_id', 'reset_token'
         ]
         input_keys = kwargs.keys()
+        user_located = self.find_user_by(id=user_id)
         for k in input_keys:
             if k not in valid_arguments:
                 raise ValueError
-            user_located = self.find_user_by(**kwargs)
-            user = self._session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound
-            return user
+            user_located.k = kwargs.values()
+            self._session.add(user_located)
+            self._session.commit()
+            return None
