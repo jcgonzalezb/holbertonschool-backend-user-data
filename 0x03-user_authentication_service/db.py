@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-import bcrypt
+
 
 from user import Base
 from user import User
@@ -85,13 +85,3 @@ class DB:
             user_located.k = kwargs.values()
             self._session.commit()
             return None
-
-    def _hash_password(self, password: str) -> bytes:
-        """
-        Method that takes in a password string arguments.
-            Returns: Bytes. The returned bytes is a salted
-            hash of the input password
-        """
-        bytePwd = password.encode('utf-8')
-        mySalt = bcrypt.gensalt()
-        return bcrypt.hashpw(bytePwd, mySalt)
