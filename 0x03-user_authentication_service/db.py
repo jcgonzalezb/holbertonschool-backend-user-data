@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 Contains DB class to handle data.
 """
@@ -38,10 +38,12 @@ class DB:
         Method that takes two arguments to save the user to the database.
             Returns: A User object.
         """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
-        return user
+        if email and hashed_password:
+            user = User(email=email, hashed_password=hashed_password)
+            self._session.add(user)
+            self._session.commit()
+            return user
+        return None
 
     def find_user_by(self, **kwargs) -> User:
         """
