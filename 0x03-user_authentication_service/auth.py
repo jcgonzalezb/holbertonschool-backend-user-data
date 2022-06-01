@@ -62,3 +62,4 @@ class Auth:
                 return True
             except NoResultFound:
                 return False
+        return None
