@@ -1,18 +1,13 @@
 #!/usr/bin/python3
 """DB module
 """
-from gettext import find
-from requests import session
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-
-
-from user import Base
-from user import User
+from user import Base, User
 
 
 class DB:
@@ -63,10 +58,10 @@ class DB:
         for k in input_keys:
             if k not in valid_arguments:
                 raise InvalidRequestError
-            user = self._session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound
-            return user
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if user is None:
+            raise NoResultFound
+        return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
