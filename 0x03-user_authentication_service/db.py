@@ -78,5 +78,5 @@ class DB:
             if k not in valid_arguments:
                 raise ValueError
             user_located.k = kwargs.values()
-            self._session.commit()
-            return None
+        self._session.commit()
+        return None
