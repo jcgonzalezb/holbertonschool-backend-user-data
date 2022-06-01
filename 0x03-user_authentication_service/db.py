@@ -11,7 +11,7 @@ from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
 
-class DB:
+class DB():
     """
     DB class to handle data
     """
