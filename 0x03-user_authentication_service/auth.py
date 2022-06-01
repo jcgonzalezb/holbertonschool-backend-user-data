@@ -66,7 +66,7 @@ class Auth():
                 return False
         return None
 
-    def _generate_uuid() -> str:
+    def _generate_uuid(self) -> str:
         """
         Method doesn't take arguments.
             Returns: A string representation of a new UUID.
