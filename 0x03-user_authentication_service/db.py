@@ -43,7 +43,6 @@ class DB:
         self._session.commit()
         return user
 
-
     def find_user_by(self, **kwargs) -> User:
         """
         Method that takes in arbitrary keyword arguments.
