@@ -93,7 +93,7 @@ class Auth():
         Method takes a single session_id string argument.
             Returns: The corresponding User or None.
         """
-        if session_id is None:
+        if session_id is not None:
             try:
                 user = self._db.find_user_by(session_id=session_id)
                 if user is None:
