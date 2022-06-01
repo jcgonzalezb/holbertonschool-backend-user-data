@@ -75,14 +75,15 @@ class Auth():
 
     def create_session(self, email: str) -> str:
         """
-        Method doesn't take arguments.
-            Returns: A string representation of a new UUID.
+        Method takes an email string argument
+            Returns: Session ID as a string.
         """
         if email:
-            user = self._db.find_user_by(email=email)
-            if user is None:
+            try:
+                user = self._db.find_user_by(email=email)
+                session_id = str(uuid.uuid4())
+                self._db.update_user(user.id, session_id=session_id)
+                return session_id
+            except NoResultFound:
                 return None
-            session_id = str(uuid.uuid4())
-            self._db.update_user(user.id, session_id=session_id)
-            return session_id
         return None
