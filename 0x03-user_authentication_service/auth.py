@@ -75,12 +75,14 @@ class Auth():
         return None
 
     def create_session(self, email: str) -> str:
-        """ Creates session ID using UUID, finds user by email """
+        """
+        Method takes an email string argument
+            Returns: Session ID as a string.
+        """
         try:
-            found_user = self._db.find_user_by(email=email)
+            user = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
         except NoResultFound:
             return None
-
-        session_id = _generate_uuid()
-        self._db.update_user(found_user.id, session_id=session_id)
-        return session_id
