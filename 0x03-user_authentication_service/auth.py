@@ -76,7 +76,7 @@ class Auth():
 
     def create_session(self, email: str) -> str:
         """
-        Method takes an email string argument
+        Method takes an email string argument.
             Returns: Session ID as a string.
         """
         try:
