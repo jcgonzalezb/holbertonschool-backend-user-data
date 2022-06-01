@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""DB module
+"""
+Contains DB class to handle data.
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -11,7 +12,8 @@ from user import Base, User
 
 
 class DB:
-    """DB class
+    """
+    DB class to handle data
     """
 
     def __init__(self) -> None:
