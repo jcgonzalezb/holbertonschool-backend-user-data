@@ -78,19 +78,6 @@ def logout():
     else:
         abort(403)
 
-    form = request.form
-    email = form['email']
-    password = form['password']
-    valid_user = AUTH.valid_login(email, password)
-    if valid_user:
-        session_id = AUTH.create_session(email)
-        message = jsonify({"email": email, "message": "logged in"})
-        response = make_response(message)
-        response.set_cookie("session_id", session_id)
-        return response
-    else:
-        abort(401)
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
