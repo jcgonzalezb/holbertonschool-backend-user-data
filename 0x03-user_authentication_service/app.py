@@ -94,8 +94,7 @@ def profile():
     if valid_user is None or user_cookie is None:
         abort(403)
     else:
-        email = valid_user.email
-        return jsonify({"email": email}), 200
+        return jsonify({"email": valid_user.email}), 200
 
 
 if __name__ == "__main__":
