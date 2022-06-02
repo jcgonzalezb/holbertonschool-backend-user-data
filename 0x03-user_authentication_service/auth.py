@@ -126,11 +126,12 @@ class Auth():
         Method that takes an email string argument.
             Returns: A token (UUID).
         """
-        try:
-            user = self._db.find_user_by(email=email)
-        except NoResultFound:
-            raise ValueError
-
-        new_token = _generate_uuid()
-        self._db.update_user(user.id, reset_token=new_token)
-        return new_token
+        if email:
+            try:
+                user = self._db.find_user_by(email=email)
+                new_token = _generate_uuid()
+                self._db.update_user(user.id, reset_token=new_token)
+                return new_token
+            except NoResultFound:
+                raise ValueError
+        return None
