@@ -136,7 +136,7 @@ def update_password():
         AUTH.update_password(reset_token, new_password)
         message = {"email": email, "message": "Password updated"}
         return jsonify(message), 200
-    except NoResultFound:
+    except Exception:
         abort(403)
 
 
