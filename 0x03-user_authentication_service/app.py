@@ -96,6 +96,7 @@ def profile():
     else:
         return jsonify({"email": valid_user.email}), 200
 
+
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """ POST /reset_password'
@@ -107,18 +108,11 @@ def get_reset_password_token():
     """
     form = request.form
     email = form['email']
-
-
-
-    user_cookie = request.cookies.get('session_id', None)
-    valid_user = AUTH.get_user_from_session_id(user_cookie)
-    if valid_user is None or user_cookie is None:
+    new_token = AUTH.get_reset_password_token(email)
+    if email is None or new_token is None:
         abort(403)
     else:
-        return jsonify({"email": valid_user.email}), 200
-
-
-
+        return jsonify({"email": email, "reset_token": new_token}), 200
 
 
 if __name__ == "__main__":
