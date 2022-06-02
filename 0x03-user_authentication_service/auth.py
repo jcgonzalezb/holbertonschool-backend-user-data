@@ -102,4 +102,3 @@ class Auth():
             return user
         except NoResultFound:
             return None
-
