@@ -73,7 +73,7 @@ def logout():
     session_id = form['session_id']
     valid_user = AUTH.get_user_from_session_id(session_id=session_id)
     if valid_user:
-        AUTH.destroy_session(valid_user.id)
+        AUTH.destroy_session(int(valid_user.id))
         return redirect('/')
     else:
         abort(403)
