@@ -81,14 +81,16 @@ class Auth():
         Method takes an email string argument.
             Returns: Session ID as a string.
         """
-        try:
-            user = self._db.find_user_by(email=email)
-            if user:
-                session_id = _generate_uuid()
-                self._db.update_user(user.id, session_id=session_id)
-                return session_id
-        except NoResultFound:
-            return None
+        if email:
+            try:
+                user = self._db.find_user_by(email=email)
+                if user:
+                    session_id = _generate_uuid()
+                    self._db.update_user(user.id, session_id=session_id)
+                    return session_id
+            except NoResultFound:
+                return None
+        return None
 
     def get_user_from_session_id(self, session_id: str) -> Union[str, None]:
         """
