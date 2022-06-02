@@ -78,7 +78,7 @@ class Auth():
 
     def create_session(self, email: str) -> str:
         """
-        Method takes an email string argument.
+        Method that takes an email string argument.
             Returns: Session ID as a string.
         """
         if email:
@@ -94,7 +94,7 @@ class Auth():
 
     def get_user_from_session_id(self, session_id: str) -> str:
         """
-        Method takes a single session_id string argument.
+        Method that takes a single session_id string argument.
             Returns: The corresponding User or None.
         """
         if session_id is None:
@@ -107,7 +107,7 @@ class Auth():
 
     def destroy_session(self, user_id: int) -> None:
         """
-        Method takes a single user_id integer argument. The
+        Method that takes a single user_id integer argument. The
         method updates the corresponding user’s session ID to None.
             Returns: None.
         """
