@@ -95,7 +95,7 @@ def profile():
         abort(403)
     else:
         email = valid_user.email
-        return jsonify({"email": email})
+        return jsonify({"email": email}), 200
 
 
 if __name__ == "__main__":
