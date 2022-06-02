@@ -100,7 +100,7 @@ def profile():
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """ POST /reset_password'
-    Function to respond to the POST /reset_password' route.
+    Function to respond to the POST /reset_password route.
     Return:
     - If the email is registered, generate a token, respond with
     a 200 HTTP status and a JSON payload.
@@ -114,6 +114,27 @@ def get_reset_password_token():
     else:
         new_token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": new_token}), 200
+
+
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password():
+    """ PUT /reset_password'
+    Function to respond to the PUT /reset_password route.
+    Return:
+    - If the token is valid, respond with a 200 HTTP status
+    and a JSON payload.
+    - If the token is not registered, respond with a 403 HTTP status.
+    """
+    form = request.form
+    email = form.get('email', '')
+    reset_token = form.get('reset_token', '')
+    new_password = form.get('new_password', '')
+    if email is None or reset_token is None or new_password is None:
+        abort(403)
+    else:
+        AUTH.update_password(reset_token, new_password)
+        new_token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": email, "message": "Password updated"}), 200
 
 
 if __name__ == "__main__":
