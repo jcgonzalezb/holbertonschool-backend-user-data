@@ -90,7 +90,7 @@ class Auth():
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> str:
+    def get_user_from_session_id(self, session_id: str) -> Union[str, None]:
         """
         Method takes a single session_id string argument.
             Returns: The corresponding User or None.
