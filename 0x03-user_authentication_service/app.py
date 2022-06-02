@@ -70,7 +70,7 @@ def logout():
     - If the user exists destroy the session and redirect the user to '/'.
     - 403 if the user does not exist
     """
-    session_id = request.cookies.get('session_id')
+    session_id = request.cookies.get('session_id', False)
     valid_user = AUTH.get_user_from_session_id(session_id=session_id)
     if valid_user:
         AUTH.destroy_session(int(valid_user.id))
