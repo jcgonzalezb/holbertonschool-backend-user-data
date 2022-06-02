@@ -107,11 +107,12 @@ def get_reset_password_token():
     - If the email is not registered, respond with a 403 HTTP status.
     """
     form = request.form
-    email = form['email']
-    new_token = AUTH.get_reset_password_token(email)
-    if email is None or new_token is None:
+    email = form.get('email', '')
+    session_id = AUTH.create_session(email)
+    if email is None or session_id is None:
         abort(403)
     else:
+        new_token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": new_token}), 200
 
 
