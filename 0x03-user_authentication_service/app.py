@@ -129,11 +129,14 @@ def update_password():
     email = form.get('email', '')
     reset_token = form.get('reset_token', '')
     new_password = form.get('new_password', '')
-    AUTH.update_password(reset_token, new_password)
-    new_token = AUTH.get_reset_password_token(email)
-    if new_token:
-        return jsonify({"email": email, "message": "Password updated"}), 200
-    else:
+    if email is None or reset_token is None or new_password is None:
+        abort(403)
+
+    try:
+        AUTH.update_password(reset_token, new_password)
+        message = {"email": email, "message": "Password updated"}
+        return jsonify(message), 200
+    except NoResultFound:
         abort(403)
 
 
