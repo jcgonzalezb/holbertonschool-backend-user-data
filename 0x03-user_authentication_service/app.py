@@ -3,6 +3,7 @@
 Route module for the API
 """
 from flask import Flask, jsonify, request, abort, make_response, redirect
+from flask import url_for
 from auth import Auth
 
 
@@ -69,12 +70,11 @@ def logout():
     - If the user exists destroy the session and redirect the user to '/'.
     - 403 if the user does not exist
     """
-    form = request.form
-    session_id = form['session_id']
+    session_id = request.cookies.get('session_id')
     valid_user = AUTH.get_user_from_session_id(session_id=session_id)
     if valid_user:
         AUTH.destroy_session(int(valid_user.id))
-        return redirect('/')
+        return redirect(url_for('index'))
     else:
         abort(403)
 
