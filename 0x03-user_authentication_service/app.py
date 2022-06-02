@@ -5,7 +5,7 @@ Route module for the API
 from flask import Flask, jsonify, request, abort, make_response, redirect
 from flask import url_for
 from auth import Auth
-
+from sqlalchemy.orm.exc import NoResultFound
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -133,8 +133,12 @@ def update_password():
         abort(403)
     else:
         AUTH.update_password(reset_token, new_password)
-        new_token = AUTH.get_reset_password_token(email)
-        return jsonify({"email": email, "message": "Password updated"}), 200
+        try:
+            new_token = AUTH.get_reset_password_token(email)
+            if new_token:
+                return jsonify({"email": email, "message": "Password updated"}), 200
+        except NoResultFound:
+            abort(403)
 
 
 if __name__ == "__main__":
