@@ -83,6 +83,11 @@ def logout():
 def profile():
     """ GET /profile
     Function to respond to the GET /profile route.
+    Return:
+    - If the user exists, respond with a 200 HTTP status and
+    a JSON payload.
+    - If the session ID is invalid or the user does not exist,
+    respond with a 403 HTTP status.
     """
     user_cookie = request.cookies.get('session_id', None)
     valid_user = AUTH.get_user_from_session_id(user_cookie)
