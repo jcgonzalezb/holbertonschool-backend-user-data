@@ -107,8 +107,9 @@ class Auth():
 
     def destroy_session(self, user_id: int) -> None:
         """
-        Method takes a single session_id string argument.
-            Returns: The corresponding User or None.
+        Method takes a single user_id integer argument. The
+        method updates the corresponding user’s session ID to None.
+            Returns: None.
         """
         if user_id is None:
             return None
