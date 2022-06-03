@@ -74,11 +74,11 @@ class DB:
         valid_arguments = [
             'id', 'email', 'hashed_password', 'session_id', 'reset_token'
         ]
-        input_keys = kwargs.keys()
+
         user_located = self.find_user_by(id=user_id)
-        for k in input_keys:
-            if k not in valid_arguments:
+        for key, value in kwargs.items():
+            if key not in valid_arguments:
                 raise ValueError
-            user_located.k = kwargs.values()
+        setattr(user_located, key, value)
         self._session.commit()
         return None
