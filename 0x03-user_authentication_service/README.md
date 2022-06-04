@@ -44,7 +44,7 @@ The method updates the corresponding user’s session ID to None. Remember to on
 
 Copy the following code at the end of the main module:
 
-´´´
+```
 EMAIL = "guillaume@holberton.io"
 PASSWD = "b4l0u"
 NEW_PASSWD = "t4rt1fl3tt3"
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     reset_token = reset_password_token(EMAIL)
     update_password(EMAIL, reset_token, NEW_PASSWD)
     log_in(EMAIL, NEW_PASSWD)
-´´´
+```
 
 Run python main.py. If everything is correct, you should see no output.
 
