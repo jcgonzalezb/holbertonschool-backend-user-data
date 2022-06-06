@@ -37,6 +37,7 @@ def profile_unlogged() -> None:
     response = requests.get(url + '/profile')
     assert response.status_code == 403
 
+
 def profile_logged(session_id: str) -> None:
     """ Asserts this function's corresponding API route. """
     user_session = log_in(EMAIL, PASSWD)
@@ -44,14 +45,13 @@ def profile_logged(session_id: str) -> None:
     response = requests.get(url + '/profile', cookies=cookies)
     assert response.status_code == 200
 
+
 def log_out(session_id: str) -> None:
     """ Asserts this function's corresponding API route. """
     user_session = log_in(EMAIL, PASSWD)
     cookies = {'session_id': user_session}
     response = requests.delete(url + '/sessions', cookies=cookies)
     assert response.status_code == 200
-
-
 
 
 EMAIL = "guillaume@holberton.io"
