@@ -59,8 +59,18 @@ def reset_password_token(email: str) -> str:
     data = {'email': email}
     response = requests.post(url + '/reset_password', data=data)
     assert response.status_code == 200
-    data = json.loads(response.content)
+    data = response.json()
     return data.get('reset_token')
+
+
+def update_password(email: str, reset_token: str, new_password: str) -> None:
+    """ Asserts this function's corresponding API route. """
+    data = {
+        'email': email, 'reset_token': reset_token,
+        'new_password': new_password
+    }
+    response = requests.put(url + '/reset_password', data=data)
+    assert response.status_code == 200
 
 
 EMAIL = "guillaume@holberton.io"
@@ -77,3 +87,5 @@ if __name__ == "__main__":
     profile_logged(session_id)
     log_out(session_id)
     reset_token = reset_password_token(EMAIL)
+    update_password(EMAIL, reset_token, NEW_PASSWD)
+    log_in(EMAIL, NEW_PASSWD)
